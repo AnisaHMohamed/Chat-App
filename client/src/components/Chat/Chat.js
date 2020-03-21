@@ -6,6 +6,8 @@ import "./Chat.css";
 
 import InfoBar from '../InfoBar/InfoBar'
 import Input from '../Input/Input'
+import Messages from '../Messages/Messages'
+
 
 let socket;
 
@@ -19,7 +21,6 @@ const Chat = ({ location }) => {
   const ENDPOINT = 'localhost:3001';
 
   useEffect(() => {
-    
     const{ name, room }= queryString.parse(location.search);
 
     socket = io(ENDPOINT);
@@ -51,7 +52,8 @@ const Chat = ({ location }) => {
 <div className="outerContainer">
   <div className="container">
     <InfoBar room={ room }/>
-    <Input />
+    < Messages />
+    <Input message={ message } setMessage={ setMessage } sendMessage={ sendMessage } />
   </div>
 </div>  )
 };
