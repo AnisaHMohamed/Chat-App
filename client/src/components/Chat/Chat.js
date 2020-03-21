@@ -4,6 +4,8 @@ import io from "socket.io-client";
 
 import "./Chat.css";
 
+import InfoBar from '../InfoBar/InfoBar'
+
 let socket;
 
 const Chat = ({ location }) => {
