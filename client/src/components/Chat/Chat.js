@@ -49,7 +49,7 @@ const Chat = ({ location }) => {
   return (
 <div className="outerContainer">
   <div className="container">
-    <InfoBar/>
+    <InfoBar room={ room }/>
     <input
     value={message}
     onChange={(event) => setMessage(event.target.value)}

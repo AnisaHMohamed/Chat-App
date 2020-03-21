@@ -16,11 +16,13 @@ const io = socketio(server);
 io.on("connection", socket => {
   socket.on("join", ({ name, room }, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room });
+   
     if (error) return callback(error);
+
     socket.join(user.room);
 
-    socket.emit("message", {
-      user: "admin",
+    socket.emit('message', {
+      user: 'admin',
       text: `${user.name} Welcome to the room ${user.room}!`
     });
 
@@ -32,7 +34,7 @@ io.on("connection", socket => {
 
   socket.on('sendMessage', (message , callback) => {
     const user = getUser(socket.id);
-    io.to(user.room).emit('message', {user: user.name, text: message})
+    io.to(user.room).emit('message', { user: user.name, text: message })
     
     callback();
 
@@ -40,6 +42,8 @@ io.on("connection", socket => {
 
   socket.on("disconnect", () => {
     console.log("User has left");
+    const user = removeUser(socket.id);
+
   });
 });
 
