@@ -33,12 +33,28 @@ const Chat = ({ location }) => {
   }, [ENDPOINT, location.search]);
   useEffect(() => {
     socket.on('message', (message) => {
-      setMessages([...messages,message])
-    },[messages])
-  })
+      setMessages([...messages,  message])
+    })
+  },[messages])
+  
+  const sendMessage = (event) => {
+    event.preventDefault();
+    if(message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
+    }
+  }
+  console.log("message",message, "messages  ",messages)
   return (
-  <h1>Chat</h1>
-  )
+<div className="outerContainer">
+  <div className="container">
+    <InfoBar/>
+    <input
+    value={message}
+    onChange={(event) => setMessage(event.target.value)}
+    onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
+    />
+  </div>
+</div>  )
 };
 
 export default Chat;
